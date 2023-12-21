@@ -30,7 +30,6 @@ const DeleteModal = ({ productId, onClose }) => {
             <div className="modal-content" onClick={e => e.stopPropagation()}>
                 <div className="modal-header">
                     <h4 className="modal-title">Edit Product</h4>
-                    <button onClick={onClose}>X</button>
                 </div>
                 <div className="modal-body"> 
                     <button onClick={onClose}>Cancel</button>

@@ -23,7 +23,7 @@ input[type="password"] {
     border-radius: 4px;
 }
 
-button {
+.login-container button {
     width: 100%;
     padding: 10px;
     border: none;

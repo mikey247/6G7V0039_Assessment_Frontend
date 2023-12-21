@@ -30,6 +30,16 @@ tbody tr:hover {
     cursor: pointer;
 }
 
+.product-table button{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;    
+}
+
 /* Responsive Table */
 @media screen and (max-width: 600px) {
     table {

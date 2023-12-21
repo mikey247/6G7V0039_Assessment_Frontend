@@ -30,12 +30,12 @@ const ProductList = () => {
     },[products]);
 
     return (
-        <>
+        <div >
          {loading && <h3>LOADING!!</h3>}
-         {!loading &&  <table>
+         {!loading &&  <table className='product-table'>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>SKU</th>
                 <th>Description</th>
                 <th>Category</th>
                 <th>Price</th>
@@ -46,7 +46,7 @@ const ProductList = () => {
       <tbody>
         {products.map(product => (
           <tr key={product.id}>
-            <td>{product.id}</td>
+            <td>{product.sku}</td>
             <td>{product.description}</td>
             <td>{product.category}</td>
             <td>{product.price}</td>
@@ -59,7 +59,7 @@ const ProductList = () => {
 
     {editProductModal && <EditProductModal product={editingProduct} onClose={()=>{setEditProductModal(false)} }/>}
     {deleteProductModal && <DeleteModal productId={productId} onClose={()=>{setDeleteProductModal(false)} }/>}
-  </>
+  </div>
      );
 }
  
