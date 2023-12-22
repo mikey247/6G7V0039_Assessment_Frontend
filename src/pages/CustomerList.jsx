@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import './CustomerList.css';
 import DeleteCustomerModal from '../components/DeleteCustomerModal';
-import EditCustomerModal from '../components/EditCUstomerModal';
+import EditCustomerModal from '../components/EditCustomerModal';
 import { Link } from 'react-router-dom';
 
 const CustomerList = () => {
