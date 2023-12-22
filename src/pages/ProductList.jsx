@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import "./ProductList.css"
 import EditProductModal from '../components/EditProductModal';
-import DeleteModal from '../components/DeleteModal';
+import DeleteModal from '../components/DeleteProductModal';
+import { Link } from 'react-router-dom';
 
 const ProductList = () => {
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
+    
     const [editingProduct, setEditingProduct] = useState(null);
     const [editProductModal, setEditProductModal] = useState(false);
 
@@ -31,6 +33,7 @@ const ProductList = () => {
 
     return (
         <div >
+         <Link to={"/product/create"}><h4>Add New</h4></Link>
          {loading && <h3>LOADING!!</h3>}
          {!loading &&  <table className='product-table'>
             <thead>

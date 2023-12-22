@@ -1,6 +1,6 @@
 import { PropTypes } from "prop-types";
 import { useState } from "react";
-import "./Modal.css";
+import "./DeleteModal.css";
 
 
 const DeleteModal = ({ productId, onClose }) => {
@@ -26,16 +26,17 @@ const DeleteModal = ({ productId, onClose }) => {
     };
 
     return (
-        <div className="modal" onClick={onClose} >
-            <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <div className="modal-header">
-                    <h4 className="modal-title">Edit Product</h4>
+        <div className="delete-modal" onClick={onClose} >
+            <div className="delete-modal-content" onClick={e => e.stopPropagation()}>
+                <div className="delete-modal-header">
+                    <h4 className="delete-modal-title">Delete Product</h4>
                 </div>
-                <div className="modal-body"> 
-                    <button onClick={onClose}>Cancel</button>
-                    <button onClick={(e)=>{handleDeleteProduct(e)}}>Confirm</button>
+                <div className="delete-modal-body"> 
+                    <button className="cancelButton" onClick={onClose}>Cancel</button>
+                    <span style={{ marginRight: '10px' }}></span>
+                    <button className="deleteButton" onClick={(e)=>{handleDeleteProduct(e)}}>Confirm</button>
+                </div>
                     <p>{message && message}</p>
-                </div>
             </div>
         </div>
     );

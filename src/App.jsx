@@ -8,6 +8,8 @@ import Navbar from './components/NavigationBar'
 import Login from './pages/Login'
 import NotFound from "./pages/404"
 import CustomerList from './pages/CustomerList'
+import CreateProduct from './pages/CreateProduct'
+import CreateCustomer from './pages/CreateCustomer'
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
       <Routes>
        <Route path="/" element={<ProductList />} />
        <Route path='/login' element={<Login onLogin={()=>{console.log("Login function")}}/>}/>
+       <Route path='/product/create' element={<CreateProduct/>} />
        <Route path='/customers' element={<CustomerList/>}/>
+       <Route path='/customer/create' element={<CreateCustomer/>}/>
        <Route path="*" element={<NotFound />} />  
       </Routes> 
     </BrowserRouter>
