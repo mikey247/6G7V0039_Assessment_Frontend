@@ -40,6 +40,24 @@
     cursor: pointer;    
 }
 
+.product-select {
+    margin-bottom: 1rem;
+  }
+
+  .product-select select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .product-select select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+
 /* Responsive Table */
 @media screen and (max-width: 600px) {
     table {
