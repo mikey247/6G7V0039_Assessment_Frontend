@@ -1,8 +1,10 @@
 import {PropTypes} from "prop-types";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import "./Modal.css";
 
 const EditProductModal = ({product, onClose}) => {
+    const auth = useSelector((state) => state.auth);
     const [editedDescription, setEditedDescription] = useState(product.description);
     const [editedCategory, setEditedCategory] = useState(product.category);
     const [editedPrice, setEditedPrice] = useState(product.price);
@@ -24,7 +26,8 @@ const EditProductModal = ({product, onClose}) => {
         fetch(`${import.meta.env.VITE_API_URL}/product/update/${product.id}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth.token}`
             },
             body: JSON.stringify(updatedProduct)
         })
@@ -53,16 +56,16 @@ const EditProductModal = ({product, onClose}) => {
              <div className="modal-body">
                 <form action="">
                     <label htmlFor="description">Description</label>
-                    <input type="text" name="" id="" value={editedDescription}  onChange={(e) => setEditedDescription(e.target.value)} />
+                    <input required={true} type="text" name="" id="" value={editedDescription}  onChange={(e) => setEditedDescription(e.target.value)} />
 
                     <label htmlFor="category">Category</label>
-                    <input type="text" name="" id="" value={editedCategory} onChange={(e)=> setEditedCategory(e.target.value)}/>
+                    <input required={true} type="text" name="" id="" value={editedCategory} onChange={(e)=> setEditedCategory(e.target.value)}/>
 
                     <label htmlFor="price">Price</label>
-                    <input type="text" name="" id="" value={editedPrice} onChange={(e)=> setEditedPrice(e.target.value)} />
+                    <input required={true} type="text" name="" id="" value={editedPrice} onChange={(e)=> setEditedPrice(e.target.value)} />
 
                     <label htmlFor="sku">SKU</label>
-                    <input type="text" name="" id="" value={editedSku} onChange={(e)=> setEditedSku(e.target.value)} />
+                    <input required={true} type="text" name="" id="" value={editedSku} onChange={(e)=> setEditedSku(e.target.value)} />
 
                     <p>{successMessage && successMessage}</p>
                     <p>{errorMessage && errorMessage}</p>

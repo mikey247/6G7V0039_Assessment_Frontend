@@ -21,7 +21,19 @@
     transition: background-color 0.3s;
 }
 
-.nav-links a:hover {
+.nav-links a:hover, button:hover {
     background-color: #003366; /* Slightly darker blue on hover */
     border-radius: 4px;
+}
+
+.logoutButton{
+    background-color: #004d99;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: background-color 0.3s;
+    cursor: pointer;
 }

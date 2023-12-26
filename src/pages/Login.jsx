@@ -1,14 +1,58 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
 import "./Login.css"
 
-const Login = ({ onLogin }) => {
-    const [username, setUsername] = useState('');
+import { authActions } from "../redux/authRedux";
+
+const Login = () => {
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState("");
+    const dispatch = useDispatch();
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onLogin(username, password); // Pass username and password up for validation
+        console.log('Login form submitted');
+        fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+            .then(response => response.json())
+            .then(data => {
+                // console.log('Login successful:', data);
+                if (!data) {
+                    setErrors("Wrong username or password");
+                } else {
+                    // Hit another endpoint to get user details
+                    fetch(`${import.meta.env.VITE_API_URL}/auth/creds`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${data.access_token}`
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(userData => {
+                            // Combine token and user details
+                            const user = {
+                                token: data.access_token,
+                                user: {...userData,password:null}
+                            };
+                            console.log('User:', user);
+                            // Dispatch to Redux manager
+                            dispatch(authActions.login({ ...user }));
+                        })
+                        .catch(error => {
+                            console.error('Failed to get user details:', error);
+                        });
+                }
+            })
+            .catch(error => {
+                console.error('Login failed:', error);
+            });
     };
 
     return (
@@ -16,12 +60,12 @@ const Login = ({ onLogin }) => {
             <form onSubmit={handleSubmit}>
                 <h2>Login</h2>
                 <div className="form-group">
-                    <label htmlFor="username">Username:</label>
+                    <label htmlFor="email">Email:</label>
                     <input
                         type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
                 <div className="form-group">
@@ -33,14 +77,11 @@ const Login = ({ onLogin }) => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+                {errors && <div className="error">{errors}</div>}
                 <button type="submit">Login</button>
             </form>
         </div>
     );
-};
-
-Login.propTypes = {
-    onLogin: PropTypes.func.isRequired
 };
 
 

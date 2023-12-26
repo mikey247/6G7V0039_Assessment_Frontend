@@ -1,8 +1,10 @@
 import { PropTypes } from "prop-types";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import "./Modal.css";
 
 const EditCustomerModal = ({ customer, onClose }) => {
+    const auth = useSelector((state) => state.auth);
     const [editedBusinessName, setEditedBusinessName] = useState(customer.businessName);
     const [editedTelephoneNumber, setEditedTelephoneNumber] = useState(customer.telephoneNumber);
     const [successMessage, setSuccessMessage] = useState(null);
@@ -35,6 +37,7 @@ const EditCustomerModal = ({ customer, onClose }) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': `Bearer ${auth.token}`
             },
             body: JSON.stringify(updatedCustomer),
         })
@@ -62,6 +65,7 @@ const EditCustomerModal = ({ customer, onClose }) => {
                     <form action="">
                         <label htmlFor="description">BusinessName</label>
                         <input
+                            required={true}
                             type="text"
                             name=""
                             id=""
@@ -71,6 +75,7 @@ const EditCustomerModal = ({ customer, onClose }) => {
 
                         <label htmlFor="category">Telephone Number</label>
                         <input
+                            required={true}
                             type="text"
                             name=""
                             id=""
@@ -80,6 +85,7 @@ const EditCustomerModal = ({ customer, onClose }) => {
 
                         <label htmlFor="addressLine1">Address Line 1</label>
                         <input
+                            required={true}
                             type="text"
                             name=""
                             id=""
@@ -91,6 +97,7 @@ const EditCustomerModal = ({ customer, onClose }) => {
 
                         <label htmlFor="addressLine2">Address Line 2</label>
                         <input
+                            required={true}
                             type="text"
                             name=""
                             id=""
@@ -102,6 +109,7 @@ const EditCustomerModal = ({ customer, onClose }) => {
 
                         <label htmlFor="addressLine3">Address Line 3</label>
                         <input
+                            required={true}
                             type="text"
                             name=""
                             id=""
@@ -113,6 +121,7 @@ const EditCustomerModal = ({ customer, onClose }) => {
 
                         <label htmlFor="postCode">Post Code</label>
                         <input
+                            required={true}
                             type="text"
                             name=""
                             id=""
@@ -124,6 +133,7 @@ const EditCustomerModal = ({ customer, onClose }) => {
 
                         <label htmlFor="country">Country</label>
                         <input
+                            required={true}
                             type="text"
                             name=""
                             id=""

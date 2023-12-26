@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import './CreateCustomer.css';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 
 const CreateCustomer = () => {
+
+    const auth = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const [customer, setCustomer] = useState({
         address: {
@@ -44,7 +47,8 @@ const CreateCustomer = () => {
         fetch(`${import.meta.env.VITE_API_URL}/customer/create`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth.token}`
             },
             body: JSON.stringify(customer)
         }).then(response=>{
@@ -64,6 +68,7 @@ const CreateCustomer = () => {
             <label>
                 Address Line 1:
                 <input
+                required={true}
                     type="text"
                     name="addressLine1"
                     value={customer.address.addressLine1}
@@ -73,6 +78,7 @@ const CreateCustomer = () => {
             <label>
                 Address Line 2:
                 <input
+                required={true}
                     type="text"
                     name="addressLine2"
                     value={customer.address.addressLine2}
@@ -82,6 +88,7 @@ const CreateCustomer = () => {
             <label>
                 Address Line 3:
                 <input
+                required={true}
                     type="text"
                     name="addressLine3"
                     value={customer.address.addressLine3}
@@ -91,6 +98,7 @@ const CreateCustomer = () => {
             <label>
                 Post Code:
                 <input
+                required={true}
                     type="text"
                     name="postCode"
                     value={customer.address.postCode}
@@ -100,6 +108,7 @@ const CreateCustomer = () => {
             <label>
                 Country:
                 <input
+                required={true}
                     type="text"
                     name="country"
                     value={customer.address.country}
@@ -109,6 +118,7 @@ const CreateCustomer = () => {
             <label>
                 Business Name:
                 <input
+                required={true}
                     type="text"
                     name="businessName"
                     value={customer.businessName}
@@ -118,6 +128,7 @@ const CreateCustomer = () => {
             <label>
                 Telephone Number:
                 <input
+                required={true}
                     type="text"
                     name="telephoneNumber"
                     value={customer.telephoneNumber}

@@ -1,14 +1,24 @@
 import { Link } from "react-router-dom";
 import "./NavigationBar.css"
+import { useSelector } from "react-redux";
+
 
 const Navbar = () => {
+    const auth = useSelector((state) => state.auth);
+    const cart = useSelector((state) => state.cart);
     return (
         <nav className="navbar">
             <div className="navbar-brand">ProductStore</div>
             <div className="nav-links">
-                <Link to="/">Home</Link>
-                <Link to="/login">Login</Link>
+                <Link to="/">Products</Link>
                 <Link to="/customers">Customers</Link>
+            </div>
+            <div className="nav-links">
+                {!auth.isLoggedIn &&<Link to="/login">Login</Link>}
+                {auth.isLoggedIn && <button className="logoutButton">Logout</button>}
+                <span style={{ marginRight: '10px' }}></span>
+                {auth.isLoggedIn && <span>Hey, {auth.userFirstName}</span>}
+                <Link to={"/cart"}> <span>Basket [{cart.quantity}]</span> </Link>
             </div>
         </nav>
     );

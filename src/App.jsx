@@ -10,6 +10,8 @@ import NotFound from "./pages/404"
 import CustomerList from './pages/CustomerList'
 import CreateProduct from './pages/CreateProduct'
 import CreateCustomer from './pages/CreateCustomer'
+import Cart from './pages/Cart'
+
 
 function App() {
   return (
@@ -17,10 +19,11 @@ function App() {
          <Navbar/>
       <Routes>
        <Route path="/" element={<ProductList />} />
-       <Route path='/login' element={<Login onLogin={()=>{console.log("Login function")}}/>}/>
+       <Route path='/login' element={<Login/>}/>
        <Route path='/product/create' element={<CreateProduct/>} />
        <Route path='/customers' element={<CustomerList/>}/>
        <Route path='/customer/create' element={<CreateCustomer/>}/>
+       <Route path='/cart' element={<Cart/>}/>
        <Route path="*" element={<NotFound />} />  
       </Routes> 
     </BrowserRouter>

@@ -1,16 +1,21 @@
+import { useSelector } from 'react-redux';
 import { PropTypes } from "prop-types";
 import { useState } from "react";
 import "./DeleteModal.css";
 
 
+
 const DeleteModal = ({ productId, onClose }) => {
     const [message, setMessage] = useState(null);
+    const auth = useSelector((state) => state.auth);
 
     const handleDeleteProduct = (e) => {
         e.preventDefault(); // Prevent the default form submission behavior
         fetch(`${import.meta.env.VITE_API_URL}/product/delete/${productId}`, {
             method: "DELETE",
-        })
+            headers: {
+                'Authorization': `Bearer ${auth.token}`
+            }        })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

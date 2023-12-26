@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import './CreateProduct.css';
 import { useNavigate } from 'react-router';
+import { useSelector } from "react-redux";
+
 
 
 const CreateProduct = () => {
+    const auth = useSelector((state) => state.auth);
     const [sku, setSKU] = useState('');
     const [price, setPrice] = useState(0);
     const [description, setDescription] = useState('');
@@ -39,7 +42,8 @@ const CreateProduct = () => {
         fetch(`${import.meta.env.VITE_API_URL}/product/create`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${auth.token}`
             },
             body: JSON.stringify(productObject)
         }).then(response=>{
@@ -57,16 +61,16 @@ const CreateProduct = () => {
             <h2>Create Product</h2>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="name">SKU:</label>
-                <input type="text" id="sku" value={sku} onChange={handleSkuChange} />
+                <input required={true} type="text" id="sku" value={sku} onChange={handleSkuChange} />
 
                 <label htmlFor="price">Price:</label>
-                <input type="text" id="price" value={price} onChange={handlePriceChange} />
+                <input required={true} type="text" id="price" value={price} onChange={handlePriceChange} />
 
                 <label htmlFor="description">Description:</label>
-                <input type='text' id="description" value={description} onChange={handleDescriptionChange} />
+                <input required={true} type='text' id="description" value={description} onChange={handleDescriptionChange} />
                 
                 <label htmlFor="category">Category:</label>
-                <input type='text' id="category" value={category} onChange={handleCategoryChange} />
+                <input required={true} type='text' id="category" value={category} onChange={handleCategoryChange} />
 
                 <button type="submit">Create</button>
             </form>
