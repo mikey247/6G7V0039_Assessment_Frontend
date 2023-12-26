@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
+import { useDispatch,useSelector } from "react-redux";
+
 import "./ProductList.css"
 import EditProductModal from '../components/EditProductModal';
 import DeleteModal from '../components/DeleteProductModal';
-import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-
 import { cartActions } from '../redux/cartRedux';
 
 const ProductList = () => {
@@ -16,7 +16,12 @@ const ProductList = () => {
   const [deleteProductModal, setDeleteProductModal] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(""); // New state variable for selected category
+
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   const handleAddToCart = (product) => {
     dispatch(cartActions.addToCart({ ...product, quantity: 1 }));
@@ -43,21 +48,40 @@ const ProductList = () => {
     })
   }, [refresh]);
 
-  // Filter products based on selected category
-  const filteredProducts = selectedCategory ? products.filter(product => product.category === selectedCategory) : products;
+// Filter products based on selected category and search term
+  const filteredProducts = selectedCategory
+  ? products.filter(
+      (product) =>
+        product.category === selectedCategory &&
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  : products.filter((product) =>
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   return (
     <div>
       <Link to={"/product/create"}><h4>Add New Product🤺</h4></Link>
+      <div className='filters'>
+        <div>        
+          <input
+            className="search-box"
+            type="text"
+            placeholder="Search by description"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
 
-      <select className="product-select" name="category" id="category" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-        <option value="">All</option>
-        {[...new Set(products.map((product) => product.category))].map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
+        <select className="product-select" name="category" id="category" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+          <option value="">All</option>
+          {[...new Set(products.map((product) => product.category))].map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
 
       {loading && <h3>LOADING!!</h3>}
       {!loading && <table className='product-table'>
@@ -68,8 +92,8 @@ const ProductList = () => {
             <th>Description</th>
             <th>Category</th>
             <th>Price</th>
-            <th></th>
-            <th></th>
+            {auth.isLoggedIn && <th></th>}
+            {auth.isLoggedIn && <th></th>}
             <th></th>
           </tr>
         </thead>
@@ -81,8 +105,8 @@ const ProductList = () => {
               <td>{product.description}</td>
               <td>{product.category}</td>
               <td>{product.price}</td>
-              <td><button onClick={() => { handleEdit(product) }}>Edit</button></td>
-              <td><button onClick={() => handleDelete(product.id)}>Delete</button></td>
+              {auth.isLoggedIn &&  <td><button onClick={() => { handleEdit(product) }}>Edit</button></td>}
+              {auth.isLoggedIn && <td><button onClick={() => handleDelete(product.id)}>Delete</button></td>}
               <td><button onClick={() => handleAddToCart(product)}>Add to Cart</button></td>
             </tr>
           ))}

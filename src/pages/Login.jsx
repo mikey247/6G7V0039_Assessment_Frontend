@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router';
 import "./Login.css"
 
 import { authActions } from "../redux/authRedux";
@@ -9,6 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
 
     const handleSubmit = (e) => {
@@ -41,9 +43,10 @@ const Login = () => {
                                 token: data.access_token,
                                 user: {...userData,password:null}
                             };
-                            console.log('User:', user);
+                            // console.log('User:', user);
                             // Dispatch to Redux manager
                             dispatch(authActions.login({ ...user }));
+                            navigate("/");  // Navigate to home page after login
                         })
                         .catch(error => {
                             console.error('Failed to get user details:', error);
