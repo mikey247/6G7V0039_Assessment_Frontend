@@ -65,7 +65,7 @@ const EditProductModal = ({product, onClose}) => {
                     <input required={true} type="text" name="" id="" value={editedPrice} onChange={(e)=> setEditedPrice(e.target.value)} />
 
                     <label htmlFor="sku">SKU</label>
-                    <input required={true} type="text" name="" id="" value={editedSku} onChange={(e)=> setEditedSku(e.target.value)} />
+                    <input disabled required={true} type="text" name="" id="" value={editedSku} onChange={(e)=> setEditedSku(e.target.value)} />
 
                     <p>{successMessage && successMessage}</p>
                     <p>{errorMessage && errorMessage}</p>
