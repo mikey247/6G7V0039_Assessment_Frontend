@@ -52,3 +52,8 @@
 .create-customer button:hover {
     background-color: #0056b3;
 }
+.successMessage {
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+}

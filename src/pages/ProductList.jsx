@@ -22,7 +22,6 @@ const ProductList = () => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
-
   const handleAddToCart = (product) => {
     dispatch(cartActions.addToCart({ ...product, quantity: 1 }));
   }
@@ -48,14 +47,14 @@ const ProductList = () => {
     })
   }, [refresh]);
 
-// Filter products based on selected category and search term
+  // Filter products based on selected category and search term
   const filteredProducts = selectedCategory
-  ? products.filter(
+    ? products.filter(
       (product) =>
         product.category === selectedCategory &&
         product.description.toLowerCase().includes(searchTerm.toLowerCase())
     )
-  : products.filter((product) =>
+    : products.filter((product) =>
       product.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -64,7 +63,7 @@ const ProductList = () => {
       {auth.isLoggedIn && <Link to={"/product/create"}><h4>Add New Product🤺</h4></Link>}
       <br />
       <div className='filters'>
-        <div>        
+        <div>
           <input
             className="search-box"
             type="text"
@@ -83,9 +82,10 @@ const ProductList = () => {
           ))}
         </select>
       </div>
-
+      
       {loading && <h3>LOADING!!</h3>}
-      {!loading && <table className='product-table'>
+      {!loading &&
+      <table className='product-table'>
         <thead>
           <tr>
             <th>ID</th>
@@ -98,7 +98,7 @@ const ProductList = () => {
             <th></th>
           </tr>
         </thead>
-        <tbody>
+       {filteredProducts.length === 0 ? ("No products found") : <tbody>
           {filteredProducts.map(product => (
             <tr key={product.id}>
               <td>{product.id}</td>
@@ -111,8 +111,10 @@ const ProductList = () => {
               <td><button onClick={() => handleAddToCart(product)}>Add to Cart</button></td>
             </tr>
           ))}
-        </tbody>
-      </table>}
+        </tbody>}
+      </table>
+      
+      }
 
       {editProductModal && <EditProductModal
         product={editingProduct}
@@ -125,3 +127,38 @@ const ProductList = () => {
 }
 
 export default ProductList;
+
+// {filteredProducts.length === 0 ? (
+//         <p>No products found</p>
+//       ) : (
+//         <table className='product-table'>
+//           <thead>
+//             <tr>
+//               <th>ID</th>
+//               <th>SKU</th>
+//               <th>Description</th>
+//               <th>Category</th>
+//               <th>Price</th>
+//               {auth.isLoggedIn && <th></th>}
+//               {auth.isLoggedIn && <th></th>}
+//               <th></th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {filteredProducts.map(product => (
+//               <tr key={product.id}>
+//                 <td>{product.id}</td>
+//                 <td>{product.sku}</td>
+//                 <td>{product.description}</td>
+//                 <td>{product.category}</td>
+//                 <td>{product.price}</td>
+//                 {auth.isLoggedIn && <td><button onClick={() => { handleEdit(product) }}>Edit</button></td>}
+//                 {auth.isLoggedIn && <td><button onClick={() => handleDelete(product.id)}>Delete</button></td>}
+//                 <td><button onClick={() => handleAddToCart(product)}>Add to Cart</button></td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       )}
+//     </div>
+//   );

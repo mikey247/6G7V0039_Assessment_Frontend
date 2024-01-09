@@ -8,6 +8,7 @@ const CreateCustomer = () => {
 
     const auth = useSelector((state) => state.auth);
     const navigate = useNavigate();
+    const [message, setMessage] = useState('');
     const [customer, setCustomer] = useState({
         address: {
             addressLine1: '',
@@ -55,6 +56,7 @@ const CreateCustomer = () => {
             return response.json();
         }).then(data=>{
             console.log("Customer created successfuly", data)
+            setMessage('Customer created successfully');
             setTimeout(()=>{
                 navigate('/customers');
             }, 2000)
@@ -135,6 +137,7 @@ const CreateCustomer = () => {
                     onChange={handleChange}
                 />
             </label>
+            <p className='successMessage'>{message}</p>
             <button type="submit">Create Customer</button>
         </form>
         </div>

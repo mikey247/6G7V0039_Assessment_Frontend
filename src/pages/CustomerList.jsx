@@ -64,7 +64,8 @@ const CustomerList = () => {
                 </tr>
             </thead>
             <tbody>
-                {customers.map((customer, index) => (
+               {customers.length === 0 && <tr><td colSpan="5">No customers found.</td></tr>}
+               {customers.map((customer, index) => (
                     <tr key={index}>
                         <td>{customer.businessName}</td>
                         <td>{customer.telephoneNumber}</td>
