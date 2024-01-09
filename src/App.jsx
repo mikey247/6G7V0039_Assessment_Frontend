@@ -1,7 +1,5 @@
-// import { useEffect } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import './App.css'
 import ProductList from './pages/ProductList'
 import Navbar from './components/NavigationBar'
@@ -11,20 +9,22 @@ import CustomerList from './pages/CustomerList'
 import CreateProduct from './pages/CreateProduct'
 import CreateCustomer from './pages/CreateCustomer'
 import Cart from './pages/Cart'
+import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
+  
   return (
     <BrowserRouter>
          <Navbar/>
       <Routes>
        <Route path="/" element={<ProductList />} />
        <Route path='/login' element={<Login/>}/>
-       <Route path='/product/create' element={<CreateProduct/>} />
-       <Route path='/customers' element={<CustomerList/>}/>
-       <Route path='/customer/create' element={<CreateCustomer/>}/>
-       <Route path='/cart' element={<Cart/>}/>
-       <Route path="*" element={<NotFound />} />  
+       <Route path='/product/create' element={<ProtectedRoute><CreateProduct/></ProtectedRoute>} />
+        <Route path='/customers' element={<ProtectedRoute><CustomerList/></ProtectedRoute>}/>
+        <Route path='/customer/create' element={<ProtectedRoute><CreateCustomer/></ProtectedRoute>}/>
+        <Route path='/cart' element={<ProtectedRoute><Cart/></ProtectedRoute>}/>
+        <Route path="*" element={<NotFound />} /> 
       </Routes> 
     </BrowserRouter>
   )

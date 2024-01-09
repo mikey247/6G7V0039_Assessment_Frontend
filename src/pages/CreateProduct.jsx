@@ -11,6 +11,8 @@ const CreateProduct = () => {
     const [price, setPrice] = useState(0);
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('')
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
 
     const handleSkuChange = (e) => {
@@ -29,32 +31,45 @@ const CreateProduct = () => {
         setCategory(e.target.value)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const productObject = {
+    
+        const productDetails = {
             category,
             description,
             sku,
             price: Number(price),
-        }
-        console.log(productObject);
-        fetch(`${import.meta.env.VITE_API_URL}/product/create`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${auth.token}`
-            },
-            body: JSON.stringify(productObject)
-        }).then(response=>{
-            return response.json();
-        }).then(data=>{
-            console.log("Product created successfuly", data)
-            setTimeout(()=>{
+        };
+    
+        console.log(productDetails);
+    
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/product/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${auth.token}`
+                },
+                body: JSON.stringify(productDetails)
+            });
+    
+            const responseData = await response.json();
+    
+            if (!response.ok) {
+                throw new Error(responseData.message || 'Error occurred');
+            }
+    
+            console.log("Product created successfully", responseData);
+            setSuccess(true);
+            setError(null);
+            setTimeout(() => {
                 navigate('/');
-            }, 2000)
-        })
-    };
+            }, 2000);
+        } catch (err) {
+            console.error(err.message);
+            setError(err.message); // Assuming setError is a state setter for displaying the error
+        }
+    };    
 
     return (
         <div className="create-product">
@@ -71,7 +86,8 @@ const CreateProduct = () => {
                 
                 <label htmlFor="category">Category:</label>
                 <input required={true} type='text' id="category" value={category} onChange={handleCategoryChange} />
-
+                <p className='errorMessage'>{error && error}</p>
+                <p className='successMessage'>{success && 'Product created'}</p>
                 <button type="submit">Create</button>
             </form>
         </div>

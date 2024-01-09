@@ -61,7 +61,8 @@ const ProductList = () => {
 
   return (
     <div>
-      <Link to={"/product/create"}><h4>Add New Product🤺</h4></Link>
+      {auth.isLoggedIn && <Link to={"/product/create"}><h4>Add New Product🤺</h4></Link>}
+      <br />
       <div className='filters'>
         <div>        
           <input
