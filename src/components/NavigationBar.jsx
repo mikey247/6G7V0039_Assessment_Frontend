@@ -20,9 +20,9 @@ return (
     <nav className="navbar">
         <div className="navbar-brand">ProductStore</div>
         <div className="nav-links">
-            <Link to="/">Products</Link>
+            {auth.isLoggedIn && <Link to="/products">Products</Link>}
             <Link to="/customers">Customers</Link>
-            <Link to="/items">Items</Link>
+            <Link to="/">Product Items</Link>
         </div>
         <div className="nav-links">
             {!auth.isLoggedIn &&<Link to="/login">Login</Link>}

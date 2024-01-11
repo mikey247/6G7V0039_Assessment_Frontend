@@ -20,9 +20,9 @@ function App() {
     <BrowserRouter>
          <Navbar/>
       <Routes>
-       <Route path="/" element={<ProductList />} />
-       <Route path='/items' element={<ItemList/>}/>
+       <Route path='/' element={<ItemList/>}/>
        <Route path='/login' element={<Login/>}/>
+       <Route path="/products" element={<ProtectedRoute><ProductList /></ProtectedRoute>} />
        <Route path='/product/create' element={<ProtectedRoute><CreateProduct/></ProtectedRoute>} />
         <Route path='/customers' element={<ProtectedRoute><CustomerList/></ProtectedRoute>}/>
         <Route path='/customer/create' element={<ProtectedRoute><CreateCustomer/></ProtectedRoute>}/>

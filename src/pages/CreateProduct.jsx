@@ -63,7 +63,7 @@ const CreateProduct = () => {
             setSuccess(true);
             setError(null);
             setTimeout(() => {
-                navigate('/');
+                navigate('/products');
             }, 2000);
         } catch (err) {
             console.error(err.message);
