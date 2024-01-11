@@ -22,13 +22,14 @@ return (
         <div className="nav-links">
             <Link to="/">Products</Link>
             <Link to="/customers">Customers</Link>
+            <Link to="/items">Items</Link>
         </div>
         <div className="nav-links">
             {!auth.isLoggedIn &&<Link to="/login">Login</Link>}
             {auth.isLoggedIn && <button className="logoutButton" onClick={handleLogout}>Logout</button>}
             <span style={{ marginRight: '10px' }}></span>
             {auth.isLoggedIn && <span>Hey, {auth.userFirstName}</span>}
-            <Link to={"/cart"}> <span> <FaCartShopping size={"17px"}/> [{cart.quantity}]</span> </Link>
+            {!auth.isLoggedIn && <Link to={"/cart"}> <span> <FaCartShopping size={"17px"}/> [{cart.quantity}]</span> </Link>}
         </div>
     </nav>
 );

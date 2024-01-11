@@ -23,6 +23,7 @@ const Cart = () => {
                     <div>
                         <h3 className="product-description">{product.description}</h3>
                         <p className="product-sku">SKU: {product.sku}</p>
+                        <p className="product-sku">Serial Number: {product.serialNumber}</p>
                     </div>
                     <div>
                         <button onClick={()=>{handleAddToCart(product)}}>+</button>
