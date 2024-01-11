@@ -81,10 +81,10 @@ const CreateProductItem = () => {
                 <label htmlFor="serialNumber">Serial Number</label>
                 <input type="text" id="serialNumber" value={serialNumber} onChange={handleSerialNumberChange} />
 
-                <label htmlFor="expiryDate">Expiry Date (Format:2024-05-17)</label>
+                <label htmlFor="expiryDate">Expiry Date</label>
                 <input type="date" id="expiryDate" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} />
 
-                <select value={selectedProductId} onChange={(e) => { console.log(e.target.value); setSelectedProductId(e.target.value)}}>
+                <select value={selectedProductId} onChange={(e) => {  setSelectedProductId(e.target.value)}}>
                     <option value="">Select a product</option>
                     {productOptions.map((product) => (
                         <option key={product.id} value={product.id}>

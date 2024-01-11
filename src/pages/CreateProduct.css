@@ -25,7 +25,9 @@
 }
 
 .create-product input[type="text"],
-.create-product input[type="number"] {
+.create-product input[type="number"],
+.create-product input[type = "date"],
+.create-product select {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
@@ -33,7 +35,9 @@
 }
 
 .create-product input[type="text"]:focus,
-.create-product input[type="number"]:focus {
+.create-product input[type="number"]:focus,
+.create-product input[type = "date"]:focus,
+.create-product select:focus {
     border-color: #007bff;
     outline: none;
 }
