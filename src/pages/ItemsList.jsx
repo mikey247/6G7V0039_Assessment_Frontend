@@ -62,6 +62,8 @@ const ItemList = () => {
           />
         </div>
 
+        <div>
+          <label htmlFor=""> Filter by category: </label>
         <select className="product-select" name="category" id="category" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
           <option value="">All</option>
           {[...new Set(products.map((product) => product.foodProduct.category))].map((category) => (
@@ -70,12 +72,16 @@ const ItemList = () => {
             </option>
           ))}
         </select>
+        </div>
           
+          <div>
+            <label htmlFor="">Filter by Expiry: </label>
           <select className='product-select' name="expiry" id="" value={selectedExpiry} onChange={(e)=> setSelectedExpiry(e.target.value)}>
             <option value="">All</option>
             <option value="expired">Expired</option>
             <option value="non-expired">Non-Expired</option>
           </select>
+          </div>
             
       </div>
       
